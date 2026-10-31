@@ -1,0 +1,134 @@
+// ------------------------------------
+// Prévia lado a lado
+//
+// As classes só aparecem no computador, com o composer aberto ou em tela
+// cheia (ver installSplitPreview.tsx): no celular e no tablet nada muda.
+
+// Uma grade: editor | prévia, e o rodapé do editor embaixo das duas. O
+// TextEditor sai da grade (`display: contents`) para o rodapé dele ocupar a
+// largura toda.
+.ComposerBody-editor.ComposerPreview-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  column-gap: 20px;
+
+  > .TextEditor {
+    display: contents;
+  }
+
+  .TextEditor-editorContainer {
+    grid-column: 1;
+    grid-row: 1;
+    min-width: 0;
+  }
+
+  .TextEditor-controls {
+    grid-column: ~"1 / -1";
+    grid-row: 2;
+  }
+
+  .ComposerPreview {
+    grid-column: 2;
+    grid-row: 1;
+  }
+}
+
+// Celular e tablet: a prévia no lugar do editor, na largura toda. Os dois
+// ocupam a mesma célula da grade: a área de texto fica invisível, mas mantém a
+// altura que o core calcula, e a prévia a cobre. A barra de formatação sai,
+// porque escreveria no texto escondido.
+.ComposerBody-editor.ComposerPreview-full {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto;
+
+  > .TextEditor {
+    display: contents;
+  }
+
+  .TextEditor-editorContainer {
+    grid-column: 1;
+    grid-row: 1;
+    min-width: 0;
+    visibility: hidden;
+  }
+
+  .TextEditor-controls {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .TextEditor-toolbar {
+    display: none;
+  }
+
+  .ComposerPreview {
+    grid-column: 1;
+    grid-row: 1;
+    border-left: 0;
+  }
+
+  .ComposerPreview-scroll {
+    padding: 0 0 10px;
+  }
+}
+
+// No celular o core deixa o composer com 350px, para caber o teclado. Na
+// prévia não há teclado: o composer usa a tela toda, e o core recalcula a
+// altura do texto (e da prévia junto) a partir dela.
+@media @phone {
+  .Composer.Composer--fullPreview:not(.minimized) {
+    height: 100% !important;
+  }
+}
+
+// A prévia não dá altura à linha: a caixa rolável é absoluta e acompanha a
+// altura da área de texto, que é a que o core calcula a cada redesenho.
+.ComposerPreview {
+  position: relative;
+  min-width: 0;
+  border-left: 1px solid var(--control-bg);
+
+  .minimized & {
+    display: none;
+  }
+}
+
+.ComposerPreview-scroll {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  overflow-anchor: none;
+  overscroll-behavior: contain;
+  padding: 0 0 10px 20px;
+  cursor: default;
+}
+
+.ComposerPreview-body {
+  overflow-wrap: break-word;
+
+  > :first-child {
+    margin-top: 0;
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+.ComposerPreview-toggle.active {
+  color: var(--primary-color);
+}
+
+@media @desktop-up {
+  // Na página do tópico o composer deixa livre a coluna da linha do tempo;
+  // com a prévia ele usa a largura toda, para as duas colunas caberem.
+  .App--discussion .Composer.Composer--splitPreview:not(.fullScreen) {
+    margin-right: -20px;
+  }
+
+  .Composer.fullScreen.Composer--splitPreview .Composer-content {
+    max-width: 1400px;
+  }
+}
