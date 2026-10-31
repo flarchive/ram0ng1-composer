@@ -2,13 +2,13 @@
 
 > **Read-only archive of released versions of ramon/composer.** Not for installation: use [Packagist](https://packagist.org/packages/ramon/composer) or the [upstream repository](https://github.com/ram0ng1/composer).
 
-**1** versions archived · Latest: [`v0.0.1`](https://github.com/flarchive/ram0ng1-composer/tree/archive/v0.0.1) · License: `MIT` · Flarum: `^2.0.0`
+**0** versions archived · Latest: [`v0.0.2`](https://github.com/flarchive/ram0ng1-composer/tree/archive/v0.0.2) · License: `MIT` · Flarum: `^2.0.0`
 
 ## Archived Versions
 
 | Version | Released | Flarum | Source |
 |---|---|---|---|
-| `v0.0.1` | 2026-10-30 | `^2.0.0` | [Browse](https://github.com/flarchive/ram0ng1-composer/tree/archive/v0.0.1) |
+| — | — | — | — |
 
 Catalog entry: [packages/ram0ng1-composer.json](https://github.com/flarchive/archive-index/blob/main/packages/ram0ng1-composer.json)
 
